@@ -53,11 +53,66 @@ class App extends React.Component{
         "Inverno" : "fa-snowman"
     }
 
-        render(){
-        return(
-            <div>
-                Meu App
+    obterLocalizacao = () => {
+        window.navigator.geolocation.getCurrentPosition(
+            (posicao) => {
+                let data = new Date()
+                let estacao = this.obterEstacao(data, posicao.coords.latitude);
+                let icone = this.icones[estacao]
+                console.log(icone)
+                this.setState(
+                    {
+                        latitude: posicao.coords.latitude,
+                        longitude: posicao.coords.longitude,
+                        estacao: estacao,
+                        data: data.toLocaleTimeString(),
+                        icone: icone
+                    }
+                )
+            }
+        )
+    }
+       
+/*    render(){
+    return(
+        <div>
+            Meu App
+        </div>
+        )
+    }
+*/
+
+    render() {
+        return (
+        // responsividade, margem acima
+            <div className="container mt-2">
+        {/* uma linha, conteúdo centralizado, display é flex */}
+                <div className="row justify-content-center">
+        {/* oito colunas das doze disponíveis serão usadas para telas médias em diante */}
+                 <div className="col-md-8">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="d-flex align-items-items-center border rounded mb-2" style={{height: '6rem'}}>
+                                <i className={`fas fa-5x ${this.state.icone}`}></i>
+                                <p className="w-75 ms-3 text-center fs-1">
+                                    {`${this.state.estacao}`}
+                                </p>
+                            </div>
+                            <div>
+                                <p className="tect-center">
+                                    {
+                                        this.state.latitude ? 
+                                        `Coordenadas: ${this.state.latitude}, ${this.state.longitude}. Data: ${this.state.data}.`
+                                        :
+                                        `Clique no botão para saber a sua estação climática`
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
         )
     }
 }
