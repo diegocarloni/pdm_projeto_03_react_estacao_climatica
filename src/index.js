@@ -18,6 +18,7 @@ class App extends React.Component{
     
     constructor(props){
         super(props)
+        console.log('construtor')
         this.state = {
             latitude: null,
             langitude: null,
@@ -86,8 +87,20 @@ class App extends React.Component{
         )
     }
 */
+    componentDidMount(){
+        console.log("componentDidMount")
+    }
+
+    componentDidUpdate(){
+        console.log("componentDidUpdate")
+    }
+
+    componentWillUnmount(){
+        console.log("componentWillUnmount")
+    }
 
     render() {
+        console.log("render")
         return (
         // responsividade, margem acima
             <div className="container mt-2">
@@ -121,6 +134,12 @@ class App extends React.Component{
                                 className="btn btn-outline-primary w-100 mt-2">
                                 Qual a minha estação?
                             </button>
+                            <buttun className="btn btn-outline-danger w-100 mt-2"
+                            onClick={() => {
+                                ReactDOM.unmountComponentAtNode(document.querySelector('#root'))
+                            }}>
+                                Perigo!!!
+                            </buttun>
                         </div>
                     </div>
                 </div>
